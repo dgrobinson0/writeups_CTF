@@ -13,4 +13,4 @@ Los retos tenían distintos niveles de dificultad y abordaban diversas disciplin
 ```Hacking web```
 ```Criptografía y esteganografía```
 
-
+<p align="center"> <img src="../img/logo_texto_banner_without_tri-1024x176.png" /> </p>
