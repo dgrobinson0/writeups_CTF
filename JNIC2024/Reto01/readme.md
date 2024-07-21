@@ -1,8 +1,8 @@
 # Reto 1 - ☃️ ¿Por qué no nieva en Sevilla?
 Herramientas utilizadas:
--steghide
--stegsnow
--strings
+- steghide
+- stegsnow
+- strings
 
 En este reto nos encontramos con 12 ficheros
 <p align="center"> <img src="../../img/reto1-1.png" /> </p>
