@@ -22,7 +22,7 @@ En la web encontramos dos imágenes y un texto que pudiera ser una pista **"Pass
 
 <p align="center"> <img src="../../img_JCE_UCI2024/reto4-3.png" /> </p>
 
-Tomamos el mensaje codificado en base64 y se lo proporcionamos como entrada a la herramienta ```CyberChef```. En el **recipe** de la herramienta utilizamos el decodificador base64 y convertimos de binario a decimal la salida.
+Tomamos el mensaje codificado en base64 y se lo proporcionamos como entrada a la herramienta online ```CyberChef```. En el **recipe** de la herramienta utilizamos el decodificador base64 y convertimos de binario a decimal la salida.
 ```
 https://gchq.github.io/CyberChef/
 ```
@@ -32,7 +32,7 @@ MDExMTAxMDAgMDExMDEwMDAgMDExMDEwMDEgMDExMTAwMTEgMDExMDEwMDEgMDExMTAwMTEgMDExMDEx
 ```
 <p align="center"> <img src="../../img_JCE_UCI2024/reto4-4.png" /> </p>
 
-El resultado no es satisfactorio, no se puede encontrar alguna flag solo un simple mensaje **"thisisnothepassword"**. Sim embargo, nos queda por revisar las imágenes que se muestran en la web. 
+El resultado no es satisfactorio, no se puede encontrar alguna flag solo un simple mensaje **"thisisnothepassword"**. Sin embargo, nos queda por revisar las imágenes que se muestran en la web. 
 
 <p align="center"> <img src="../../img_JCE_UCI2024/reto4-5.png" /> </p>
 
@@ -43,7 +43,7 @@ wget http://ip_mv/images/yoda.png
 ```
 <p align="center"> <img src="../../img_JCE_UCI2024/reto4-6.png" /> </p>
 
-Teniendo las imágenes descargadas, utilizamos la herramienta ```steganography``` para determinar y extraer texto oculto en las imágenes mediante esteganografía.
+Teniendo las imágenes descargadas, utilizamos la herramienta online ```steganography``` para determinar y extraer texto oculto en las imágenes mediante esteganografía.
 ```
 https://stylesuxx.github.io/steganography/ 
 ```
