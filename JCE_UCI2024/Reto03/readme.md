@@ -59,10 +59,30 @@ flag{cf88b37e8cb10c4005c1f2781a069cf8}
 ```
 Además nos brinda información sobre los demás puertos abiertos (ftp 21, ssh 22, http 80). Podemos observar que el puerto 21 permite la autenticación al servicio ftp con usuario anonymous.
 
-Luego de revisar los ficheros que se encuentran en el servidor ftp, encontramos en el directorio de Howard un archivo .zip protegido con contraseña y una nota. Utilizamos la herramienta ```fcrackzip``` para encontrar la contraseña del comprimido.
+Luego de revisar los ficheros que se encuentran en el servidor ftp, encontramos en el directorio de Howard un archivo .zip protegido con contraseña y una nota.
+
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-1.PNG" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-2.PNG" /> </p>
+
+Luego de descargarnos los archivos, utilizamos la herramienta ```fcrackzip``` para encontrar la contraseña del comprimido.
 ```
 fcrackzip -u -D -p '/usr/share/wordlists/rockyou.txt' super_secret_nasa_stuff_here.zip
 ```
-<p align="center"> <img src="../../img_JCE_UCI2024/reto3-1.png" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-3.PNG" /> </p>
 
+Descomprimimos el archivo usando ```unzip``` y obtenemos una imagen cifrada por lo que tenemos que encontrar la contraseña de la imagen para ver el contenido.
+```
+unzip super_secret_nasa_stuff_here.zip
+```
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-4.PNG" /> </p>
 
+Utilizando la herramienta ```stegcracker``` encontramos la contraseña y visualizamos el contenido de la imagen obteniendo la seguda flag.
+```
+stegcracker marsroversketch.jpg /usr/share/wordlists/rockyou.txt
+```
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-5.PNG" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-6.PNG" /> </p>
+
+```
+flag{b3d1baf22e078744ad7947519bf4}
+```
