@@ -157,7 +157,7 @@ Revisamos el directorio ```/var/www/html/music/wordpress``` y encontramos el fic
 cd /var/www/html/music/wordpress
 cat wp-config.php
 ```
-<p align="center"> <img src="../../img_JCE_UCI2024/reto3-8.PNG" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-11.PNG" /> </p>
 
 Usamos las credenciales encontradas y localizamos la otra flag del reto:
 ```
@@ -226,7 +226,7 @@ Posteriormente accedemos al directorio ```/var/www/html/private/``` y encontramo
 cd /var/www/html/private/
 cat db_config.php
 ```
-<p align="center"> <img src="../../img_JCE_UCI2024/reto3-8.PNG" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-12.PNG" /> </p>
 
 Usamos las credenciales encontradas y localizamos la otra flag del reto:
 ```
@@ -282,7 +282,7 @@ Sexta flag: ```flag{f42d950ab0e966198b66a5c719832d5f}```
 
 Para la última flag del reto, accedemos al directorio ```/home/leonard/``` el cual contiene un script en bash donde el propietario es root y tenemos permisos de escritura. Revisamos el script y observamos que se ejecuta cada cierto tiempo. 
 
-<p align="center"> <img src="../../img_JCE_UCI2024/reto3-8.PNG" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-14.PNG" /> </p>
 
 Agregamos una línea de código que nos permite entablarnos una reverse shell con la máquina víctima.
 ```
@@ -294,6 +294,6 @@ nc -nlvp 4142
 ```
 En este punto solo nos queda listar la flag final del reto:
 
-<p align="center"> <img src="../../img_JCE_UCI2024/reto3-8.PNG" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto3-13.PNG" /> </p>
 
 Última flag: ```flag{17fc95224b65286941c54747704acd3e}```
