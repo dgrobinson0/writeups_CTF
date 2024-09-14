@@ -4,9 +4,7 @@ Herramientas utilizadas:
 - netcat
 - john the ripper
 - gobuster
-- hashidentificar
-- hydra
-- 
+- hash-identifier
 
 Este reto consiste en aplicar técnicas de hacking para encontrar tres banderas en la máquina víctima. Luego de identificar el host procedemos a utilizar la herramienta ```nmap``` para determinar los servicios y versiones que corren por los puertos que tiene abiertos la máquina víctima.
 ```
@@ -75,6 +73,7 @@ Accedemos al panel de login de Wordpress y probamos las credenciales encontradas
 
 <p align="center"> <img src="../../img_JCE_UCI2024/reto5-4.png" /> </p>
 <p align="center"> <img src="../../img_JCE_UCI2024/reto5-5.png" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-12.png" /> </p>
 
 Ya logueados nos aprovechamos del apartado **Appearance** para subir una **reverse shell** y ganar acceso a la máquina. Agregamos la línea de código siguiente:
 ```
@@ -89,11 +88,11 @@ Dentro de la máquina víctima procedemos a listar el contenido del directorio *
 
 <p align="center"> <img src="../../img_JCE_UCI2024/reto5-6.png" /> </p>
 
-Nótese que el archivo de la flag solo puede ser leído por el propietario. Revisamos el fichero **** y encontramos unas credenciales potenciales. 
+Nótese que el archivo de la flag solo puede ser leído por el propietario. Revisamos el fichero **password.raw-md5** y encontramos unas credenciales potenciales. 
 
 <p align="center"> <img src="../../img_JCE_UCI2024/reto5-7.png" /> </p>
 
-La contraseña se encontraba cifrada en MD5 por lo que tubimos que descifrarla utilizando la herramienta ```John The Ripper```
+Utilizamos la herramienta ```hash-identifier``` proporcionandole la contraseña encontrada y nos devuelve que se encuentra cifrada con MD5, por lo que tubimos que descifrarla utilizando la herramienta ```John The Ripper```
 
 ```
 john --format=raw-md5 --wordlist=/usr/share/wordlist/rockyou.txt hash.txt
@@ -124,4 +123,21 @@ find / -perm -u=s -type f 2>/dev/null
 ```
 <p align="center"> <img src="../../img_JCE_UCI2024/reto5-8.png" /> </p>
 
+Buscamos en la pagina ```https://gtfobins.github.io/``` si podemos escalar privilegios a través de la herramienta nmap con permisos de SUID y efectivamente, existe una vía ejecutando comandos.
+
+```
+nmap --interactive
+nmap> sh!
+```
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-9.png" /> </p>
+
+Ejecutamos los comandos en la maquina víctima y nos convertimos en root. Accedemos al directorio **/root** y encontramos el fichero que contiene la última flag.
+
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-10.png" /> </p>
+
+Listamos el contenido del fichero y obtenemos la flag.
+
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-11.png" /> </p>
+
+Última flag: ```flag{04787ddef27c3dee1ee161b21670b4e4}```
 
