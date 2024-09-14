@@ -2,11 +2,11 @@
 Herramientas utilizadas:
 - nmap
 - netcat
-- cyberchef
+- john the ripper
 - gobuster
-- cewl
+- hashidentificar
 - hydra
-- wget
+- 
 
 Este reto consiste en aplicar técnicas de hacking para encontrar tres banderas en la máquina víctima. Luego de identificar el host procedemos a utilizar la herramienta ```nmap``` para determinar los servicios y versiones que corren por los puertos que tiene abiertos la máquina víctima.
 ```
@@ -30,10 +30,34 @@ Podemos observar que encontramos tres puertos abiertos. Procedemos a revisar la 
 <p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
 
 Utilizamos la herramienta ```gobuster``` para listar los directorios existentes en la web.
+```
+gobuster dir --url http://10.32.2.48/ -w /usr/share/wordlists/dirbuster/directory-list-1.0.txt
+
+===============================================================
+/images (Status: 301)
+/video (Status: 301)
+/rss (Status: 301)
+/image (Status: 301)
+/blog (Status: 301)
+/0 (Status: 301)
+/audio (Status: 301)
+/sitemap (Status: 200)
+/admin (Status: 301)
+/feed (Status: 301)
+/robots (Status: 200)
+/dashboard (Status: 302)
+/login (Status: 302)
+/phpmyadmin (Status: 403)
+/intro (Status: 200)
+/license (Status: 200)
+/wp-content (Status: 301)
+/css (Status: 301)
+/js (Status: 301)
+```
+
+Accedemos al directorio **/robots** y nos encontramos con dos ficheros de interés. Listamos el contenido del fichero **key-1-of-3.txt** y encontramos la primera flag del reto.
 
 <p align="center"> <img src="../../img_JCE_UCI2024/reto5-1.png" /> </p>
-
-Listamos el contenido del fichero y encontramos la primera flag del reto
 
 Primera flag: ```flag{073403c8a58a1f80d943455fb30724b9}```
 
