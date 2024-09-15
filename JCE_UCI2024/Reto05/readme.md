@@ -115,7 +115,7 @@ robot@linux:~$ cat key-2-of-3.txt
 cat key-2-of-3.txt
 822c73956184f694993bede3eb39f959
 ```
-Segunda flag: flag{822c73956184f694993bede3eb39f959}
+Segunda flag: ```flag{822c73956184f694993bede3eb39f959}```
 
 Para encontrar la tercera y última flag del reto necesitamos escalar privilegios para convertirnos en root. Buscamos por permisos SUID y encontramos que el binario nmap está corriendo con permisos SUID.
 ```
