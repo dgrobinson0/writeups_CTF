@@ -8,8 +8,8 @@ La imagen térmica contiene un patrón de colores más cálidos (naranja y rojo)
 
 De acuerdo a la imagen, las teclas más calientes podrían corresponder a las que fueron presionadas para ingresar el código.
 
-- Primeramente identificamos las teclas más calientes observando las zonas de color rojo brillante: ```3570```
-- Luego determinamos el orden de las pulsaciones basándonos en el criterio de que las teclas con el color más cálido podrían haber sido presionadas más recientemente: ```3750``` 
+- Primeramente identificamos las teclas más calientes observando las zonas de color rojo brillante: ```0753```
+- Luego determinamos el orden de las pulsaciones basándonos en el criterio de que las teclas con el color más cálido podrían haber sido presionadas más recientemente: ```0753``` 
 - Posteriormente enviamos la flag en el formato flagmx{XXXX}, donde XXXX representa el código de cuatro dígitos.
 
-**Flag del reto:** ```flagmx{3750}```
+**Flag del reto:** ```flagmx{0753}```
